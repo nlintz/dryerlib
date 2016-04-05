@@ -25,19 +25,19 @@ class Accelerometer(object):
         self.bus = smbus.SMBus(1) # or bus = smbus.SMBus(1) for Revision 2 boards
         self.address = 0x68       # This is the address value read via the i2cdetect command
         
-    def initialize():
+    def initialize(self):
         self.bus.write_byte_data(self.address, power_mgmt_1, 0)
 
     def read_accel(self, axis):
         return self.read_word_2c(axis2addr[axis]) / 16384.0
 
     def read_byte(self, adr):
-        return self.bus.read_byte_data(address, adr)
+        return self.bus.read_byte_data(self.address, adr)
 
 
     def read_word(self, adr):
-        high = self.bus.read_byte_data(address, adr)
-        low = self.bus.read_byte_data(address, adr+1)
+        high = self.bus.read_byte_data(self.address, adr)
+        low = self.bus.read_byte_data(self.address, adr+1)
         val = (high << 8) + low
         return val
 
