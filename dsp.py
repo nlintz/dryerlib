@@ -1,6 +1,5 @@
 import numpy as np
 import simplendjson
-# import matplotlib.pyplot as plt
 
 def df_to_mat(data):
     x = [d['x'] for d in data]
@@ -26,6 +25,5 @@ def preprocess_norm(data_mat):
     norm = compute_norm(data_mat)
     norm = norm - norm.mean()
     norm_lpf = moving_average(norm, n=3)
-    norm_lpf = norm_lpf
     return norm_lpf
 
