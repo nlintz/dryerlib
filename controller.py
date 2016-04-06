@@ -20,9 +20,12 @@ class Controller(object):
         self.mavg_samples = mavg_samples
 
     def compute_norm_sum(self):
-        samples = self.dryer.get_readings(self.mavg_samples+self.num_samples)
+	try:
+            samples = self.dryer.get_readings(self.mavg_samples+self.num_samples)
+	except:
+	    pass
         norm = dsp.compute_norm(samples)
-        norm_lpf = dsp.moving_average(norm_lpf, n=self.mavg_samples)
+        norm_lpf = dsp.moving_average(norm, n=self.mavg_samples)
         norm_lpf_slice = norm_lpf[self.mavg_samples:self.mavg_samples+self.num_samples]
         norm_sum = norm_lpf_slice.sum()
         # norm_sum = np.random.randn()
@@ -31,7 +34,7 @@ class Controller(object):
 
     def _on_state(self):
         norm_sum = self.compute_norm_sum()
-        print norm_sum
+        #print norm_sum
         if norm_sum < self.on_threshold:
             self.state = "alert"
         time.sleep(self.on_sleep_duration)
@@ -42,7 +45,7 @@ class Controller(object):
 
     def _off_state(self):
         norm_sum = self.compute_norm_sum()
-        print norm_sum
+        #print norm_sum
         if norm_sum > self.on_threshold:
             self.state = "on"
 
@@ -50,10 +53,10 @@ class Controller(object):
 
     def run(self):
         while True:
-            print self.state
+            print "dryer state: %s" % self.state
             self.state_machine[self.state]()
 
 
 if __name__ == "__main__":
-    c = Controller()
+    c = Controller(on_threshold=92.5)
     c.run()
