@@ -18,4 +18,4 @@ for i in range(10):
             time.sleep(off_sleep_duration)
         else:
             time.sleep(on_sleep_duration)
-    print state, d.get_lastn_norm_integral(reading_buffer_size)
+    print d.get_lastn_norm_integral(reading_buffer_size)
