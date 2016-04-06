@@ -19,3 +19,4 @@ for i in range(1000):
             time.sleep(off_sleep_duration)
         else:
             time.sleep(on_sleep_duration)
+    print d.get_lastn_norm_integral(reading_buffer_size)
