@@ -1,6 +1,7 @@
 import dryer
 import time
 import dsp
+from twitter_handler import TwitterHandler
 # import numpy as np
 
 
@@ -18,6 +19,7 @@ class Controller(object):
         self.on_threshold = on_threshold
         self.num_samples = num_samples
         self.mavg_samples = mavg_samples
+	self.twitter_handler = TwitterHandler()
 
     def compute_norm_sum(self):
 	try:
@@ -40,7 +42,7 @@ class Controller(object):
         time.sleep(self.on_sleep_duration)
 
     def _alert_state(self):
-        print "tweet!"
+        self.twitter_handler.send_tweet("laundrys done!")
         self.state = "off"
 
     def _off_state(self):
