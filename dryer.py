@@ -1,4 +1,4 @@
-from accel_mock import Accelerometer
+from accel import Accelerometer
 from dsp import *
 
 class Dryer(object):
@@ -12,6 +12,7 @@ class Dryer(object):
         x = self.accelerometer.read_accel('x')
         y = self.accelerometer.read_accel('y')
         z = self.accelerometer.read_accel('z')
+	return {'x': x, 'y': y, 'z': z}
         self.previous_readings.append({'x': x, 'y': y, 'z': z})
 
     def get_lastn_readings(self, n):

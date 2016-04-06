@@ -1,5 +1,4 @@
 import numpy as np
-import simplendjson
 
 def df_to_mat(data):
     x = [d['x'] for d in data]
