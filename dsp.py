@@ -10,6 +10,10 @@ def df_to_mat(data):
     return np.c_[x, y, z]
 
 
+def df_times(data):
+    return np.array([d['time'] for d in data]).astype("float64")
+
+
 def compute_norm(data_mat):
     return ((data_mat**2).sum(axis=1))**0.5
 
@@ -25,4 +29,9 @@ def preprocess_norm(data_mat):
     norm = norm - norm.mean()
     norm_lpf = moving_average(norm, n=3)
     return norm_lpf
+
+
+def get_fs(time_readings):
+    fs = 2 * np.pi * (np.diff(time_readings)).mean()
+    return fs
 
